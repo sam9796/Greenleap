@@ -1,0 +1,21 @@
+.navbar{
+    display:flex;
+    flex-direction:row;
+    /* position: */
+}
+
+.navRight{
+    display:flex;
+    flex-direction:row;
+    gap:20px;
+}
+.navRight div{
+padding:0 15px;
+font-size:15px;
+font-weight:600;
+}
+.dropdown-menu{
+    height:170px;
+    overflow-y: scroll;
+}
+/* #8cc63e */
