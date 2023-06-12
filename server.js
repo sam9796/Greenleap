@@ -55,22 +55,22 @@ mongoAtlasUri="mongodb+srv://Apoorv:mongodb%40greenleap5@greenleap-cluster0.kxtk
       { useNewUrlParser: true, useUnifiedTopology: true },
     ).then(()=>{console.log("Mongodb Connected")}).catch((err)=>{console.log(err)});
 
-    app.use(express.static(buildPath));
-    app.get('/admin', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-      });
-    app.get('/', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-      });
-    app.get('/login', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-      });
-    app.get('/admindashboard', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-      });
-    app.get('/site', (req, res) => {
-        res.sendFile(path.join(buildPath, 'index.html'));
-      });
+    // app.use(express.static(buildPath));
+    // app.get('/admin', (req, res) => {
+    //     res.sendFile(path.join(buildPath, 'index.html'));
+    //   });
+    // app.get('/', (req, res) => {
+    //     res.sendFile(path.join(buildPath, 'index.html'));
+    //   });
+    // app.get('/login', (req, res) => {
+    //     res.sendFile(path.join(buildPath, 'index.html'));
+    //   });
+    // app.get('/admindashboard', (req, res) => {
+    //     res.sendFile(path.join(buildPath, 'index.html'));
+    //   });
+    // app.get('/site', (req, res) => {
+    //     res.sendFile(path.join(buildPath, 'index.html'));
+    //   });
       
 
 
@@ -281,13 +281,13 @@ res.json({success:true}) }catch(error){
 app.post('/api/roboCommand/:command',(req, res) => {
     let {robots}=req.body
     let count=0;
+    console.log(robots)
     for(let robo in robots){
         mqttClient.publish(`${robots[robo]}`,req.params.command,function() {
         console.log("sent successfully")
             count+=1;
           }); 
     } 
-    mqttClient.end();
     if(count==robots.length)res.json({success:true});
     else res.send({success:false})
 });

@@ -1,0 +1,25 @@
+version: 1.2
+
+phases:
+  install:
+    commands:
+      # Install dependencies needed for running tests
+      - npm install
+
+      # Upgrade AWS CLI to the latest version
+      - pip install --upgrade awscli
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - cd my-app && ls
+      - ls -a
+
+artifacts:
+  files:
+    - '**/*'
