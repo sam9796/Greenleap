@@ -6,7 +6,7 @@ function RoboDisplay(props){
     const {specRobot,alpha2,setUser,setRobot,setSite,setSpecRobot,setSite1,setUser1}=props
 
     const Delete2=async (e)=>{
-      const resp=await fetch(`http://13.127.159.13/api/deleteRobot/${specRobot._id}`,{
+      const resp=await fetch(`http://localhost:8081/api/deleteRobot/${specRobot._id}`,{
       method:"DELETE",
       headers:{
           'Content-Type':'application/json',
@@ -33,7 +33,7 @@ function RoboDisplay(props){
   }
 
     const Update2=async ()=>{
-      const resp=await fetch(`http://13.127.159.13/api/updateRobot/${specRobot._id}`,{
+      const resp=await fetch(`http://localhost:8081/api/updateRobot/${specRobot._id}`,{
           method:'POST',
           headers:{
               'Content-Type':'application/json',

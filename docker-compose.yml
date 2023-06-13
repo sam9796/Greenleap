@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
     nginx:
-      depends_on:
-      - server
-      - client
       restart: always
       build:
         dockerfile: Dockerfile
@@ -14,16 +11,27 @@ services:
     server:
       build:
         dockerfile: Dockerfile
-        context: "./"
+        context: ./
+      restart: always
       volumes:
-        - ./:./
+        - ./:/usr/src/app
+        - /usr/src/app/node_modules
+      depends_on:
+        - nginx
+      ports:
+        - 8081:8081
 
     client:
       stdin_open: true
       build:
         dockerfile: Dockerfile
         context: ./my-app
+      restart: always
+      volumes:
+        - ./my-app:/usr/app
+        - /usr/app/node_modules
       depends_on:
         - server
-      volumes:
-        - ./my-app:./
+        - nginx
+      ports:
+        - 3000:3000

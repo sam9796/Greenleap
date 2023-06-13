@@ -6,7 +6,7 @@ import Navright1 from './navright1.jsx'
 function Navbar() {
   const [resp1,setResp1]=useState({success:false,sites:[],username:""})
   useEffect(()=>{
-    const  handle=async ()=>{const resp=await fetch('http://13.127.159.13/api/getData',{
+    const  handle=async ()=>{const resp=await fetch('http://localhost:8081/api/getData',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',

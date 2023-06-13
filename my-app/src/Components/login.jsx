@@ -17,7 +17,7 @@ useEffect(()=>{
 },[])
 const handleSubmit=async (e)=>{
   e.preventDefault()
-  const response= await fetch('http://13.127.159.13/api/auth',{
+  const response= await fetch('http://localhost:8081/api/auth',{
       method:"POST",
       headers:{
         'Content-Type':'application/json',
