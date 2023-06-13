@@ -55,22 +55,22 @@ mongoAtlasUri="mongodb+srv://Apoorv:mongodb%40greenleap5@greenleap-cluster0.kxtk
       { useNewUrlParser: true, useUnifiedTopology: true },
     ).then(()=>{console.log("Mongodb Connected")}).catch((err)=>{console.log(err)});
 
-    // app.use(express.static(buildPath));
-    // app.get('/admin', (req, res) => {
-    //     res.sendFile(path.join(buildPath, 'index.html'));
-    //   });
-    // app.get('/', (req, res) => {
-    //     res.sendFile(path.join(buildPath, 'index.html'));
-    //   });
-    // app.get('/login', (req, res) => {
-    //     res.sendFile(path.join(buildPath, 'index.html'));
-    //   });
-    // app.get('/admindashboard', (req, res) => {
-    //     res.sendFile(path.join(buildPath, 'index.html'));
-    //   });
-    // app.get('/site', (req, res) => {
-    //     res.sendFile(path.join(buildPath, 'index.html'));
-    //   });
+    app.use(express.static(buildPath));
+    app.get('/admin', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+      });
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+      });
+    app.get('/login', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+      });
+    app.get('/admindashboard', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+      });
+    app.get('/site', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'));
+      });
       
 
 

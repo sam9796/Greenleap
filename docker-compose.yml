@@ -6,8 +6,10 @@ services:
       build:
         dockerfile: Dockerfile
         context: ./nginx
+      depends_on:
+      - server
       ports:
-      - "80:80"  
+      - 80:80  
     server:
       build:
         dockerfile: Dockerfile
@@ -16,22 +18,5 @@ services:
       volumes:
         - ./:/usr/src/app
         - /usr/src/app/node_modules
-      depends_on:
-        - nginx
       ports:
         - 8081:8081
-
-    client:
-      stdin_open: true
-      build:
-        dockerfile: Dockerfile
-        context: ./my-app
-      restart: always
-      volumes:
-        - ./my-app:/usr/app
-        - /usr/app/node_modules
-      depends_on:
-        - server
-        - nginx
-      ports:
-        - 3000:3000
