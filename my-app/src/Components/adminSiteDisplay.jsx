@@ -5,7 +5,7 @@ import {toast} from 'react-toastify'
 function SiteDisplay(props){
     const {alpha1,specSite,setModal3,getRoboData,setUser,setRobot,setSite,setSpecSite,setSite1,setUser1}=props
     const Delete1=async (e)=>{
-        const resp=await fetch(`http://13.233.231.169:8081/api/deleteClient/${specSite.id}`,{
+        const resp=await fetch(`http://13.233.231.169/api/deleteClient/${specSite.id}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json',
@@ -34,7 +34,7 @@ function SiteDisplay(props){
     
     
     const Update1=async ()=>{
-        const resp=await fetch(`http://13.233.231.169:8081/api/updateClient/${specSite.id}`,{
+        const resp=await fetch(`http://13.233.231.169/api/updateClient/${specSite.id}`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json',

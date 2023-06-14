@@ -46,7 +46,7 @@ function AdminDashboard() {
     const handleUser=async ()=>{
         
         console.log("Hello")
-        const resp=await fetch('http://13.233.231.169:8081/api/getAllUsers',{
+        const resp=await fetch('http://13.233.231.169/api/getAllUsers',{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -91,7 +91,7 @@ function alpha(e){
 }
 
 const getSiteData=async (site1)=>{
-    const resp=await fetch('http://13.233.231.169:8081/api/getRobots',{
+    const resp=await fetch('http://13.233.231.169/api/getRobots',{
        method:'POST',
        headers:{
         'Content-Type':'application/json',
@@ -114,7 +114,7 @@ const getSiteData=async (site1)=>{
 }
 
 const getRoboData=async (robo1)=>{
-    const resp=await fetch('http://13.233.231.169:8081/api/getRoboData',{
+    const resp=await fetch('http://13.233.231.169/api/getRoboData',{
        method:'POST',
        headers:{
         'Content-Type':'application/json',
