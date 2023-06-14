@@ -6,7 +6,7 @@ function Display(props){
     const {specUser,alpha3,setModal2,getSiteData,setSpecUser,setUser,setSite,setRobot,setSite1,setUser1}=props
 
     const Delete=async (e)=>{
-        const resp=await fetch(`http://localhost:8081/api/deleteUser/${specUser._id}`,{
+        const resp=await fetch(`http://13.233.231.169/api/deleteUser/${specUser._id}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json',
@@ -34,7 +34,7 @@ function Display(props){
     }
 
     const Update=async ()=>{
-        const resp=await fetch(`http://localhost:8081/api/updateUser/${specUser._id}`,{
+        const resp=await fetch(`http://13.233.231.169/api/updateUser/${specUser._id}`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',

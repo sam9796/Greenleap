@@ -35,7 +35,7 @@ const channel = pusher.subscribe("my-channel");
     // const [change,setChange]=useState("0")
     //function that handles what happens when the robot send it's current state
     const toUpdate=async ()=>{
-      const resp=await fetch('http://localhost:8081/api/getRobots',{
+      const resp=await fetch('http://13.233.231.169/api/getRobots',{
         method:'POST',
         headers:{
           'Content-Type':'application/json',
@@ -81,7 +81,7 @@ const channel = pusher.subscribe("my-channel");
         pauseOnHover: true,
       });return;}
       let arr=k2.split('-')
-      let resp1=await fetch('http://localhost:8081/api/load',{
+      let resp1=await fetch('http://13.233.231.169/api/load',{
         method:"POST",
         headers:{
           'Content-Type':'application/json',
@@ -103,7 +103,7 @@ const channel = pusher.subscribe("my-channel");
       link.download = 'System.txt';
       link.click();}
     
-      resp1=await fetch('http://localhost:8081/api/load',{
+      resp1=await fetch('http://13.233.231.169/api/load',{
         method:"POST",
         headers:{
           'Content-Type':'application/json',
@@ -128,7 +128,7 @@ const channel = pusher.subscribe("my-channel");
     }
     const showDisplay = async (event)=>{
     let k1=event.target.parentNode.children[1].textContent
-    const resp1=await fetch('http://localhost:8081/api/getRoboData',{
+    const resp1=await fetch('http://13.233.231.169/api/getRoboData',{
       method:"POST",
       headers:{
         'Content-Type':'application/json',
@@ -237,7 +237,7 @@ masterCheckBox.addEventListener('change', function() {
           closeOnClick: true,
           pauseOnHover: true,});
         return;}
-      const resp=await fetch(`http://localhost:8081/api/roboCommand/${beta}`,{
+      const resp=await fetch(`http://13.233.231.169/api/roboCommand/${beta}`,{
             method:"POST",
             headers:{
               'Content-Type':'application/json'

@@ -6,7 +6,7 @@ function adminAddRobot(props) {
     const {modal3,setModal3,beta1,createRobo,setCreateRobo,setRobot,setSite,setUser,specSite,setUser1,setSite1}=props
     const Change1=async (e)=>{
         e.preventDefault();
-        const resp=await fetch('http://localhost:8081/api/createRobot',{
+        const resp=await fetch('http://13.233.231.169/api/createRobot',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',

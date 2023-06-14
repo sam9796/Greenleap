@@ -6,7 +6,7 @@ function adminAddSite(props) {
     const {modal2,setModal2,createSite,specUser,beta,setUser,setSite,setRobot,setCreateSite,setUser1,setSite1}=props
     const Change2=async (e)=>{
         e.preventDefault()
-        const resp=await fetch('http://localhost:8081/api/registerClient',{
+        const resp=await fetch('http://13.233.231.169/api/registerClient',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
