@@ -8,16 +8,18 @@ import { toast } from "react-toastify";
 import MyChart from "./mychart.jsx";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
+import mqtt from 'mqtt/dist/mqtt'
 
 Chart.register(CategoryScale);
 function Body() {
+  const [mqttClient,setMqttClient]=useState(null)
+  useEffect(() => {
+    setMqttClient(mqtt.connect('ws://broker.hivemq.com:8000/mqtt', {
+   username: 'gwortssh',
+   password: 'F3Ce-SNdObpe',
+ }))
+   }, []);
   const navigate = useNavigate();
-  const pusher = new Pusher("5564dcf7d4ec7a6e2484", {
-    cluster: "ap2",
-    forceTLS: true,
-    disableStats: true,
-  });
-  const channel = pusher.subscribe("my-channel");
   //Stores the response to the command, sent by the robot/ server
   //set response if the server res prop changes
   const location = useLocation();
@@ -371,20 +373,29 @@ function Body() {
       let temp = [data[0], data[1]];
       setResponse(temp);
     };
-    useEffect(() => {
-      //Listening on the channel for "robot.id/state", where the robot sends it's current state
-
-      channel.bind(`${val}/state`, stateHandler);
-
-      //Listening on the channel for "robot.id/response", where the robot/server sends the response to the command
-      channel.bind(`${val}/response`, responseHandler);
-
-      //Cleanup function to stop listening when the component unmounts
-      return () => {
-        channel.unbind(`${val}/state`);
-        channel.unbind(`${val}/response`);
-      };
-    }, []);
+    useEffect(()=>{
+ if(mqttClient){mqttClient.on('connect', () => {
+   console.log('connected to mqtt broker');
+   mqttClient.subscribe('robot/state');
+   mqttClient.subscribe('robot/response');
+   mqttClient.on('message', (topic, message) => {
+       switch (topic) {
+           case "robot/state":                                                           
+               let m = message.toString();                                               
+               let m2 = m.split(';');
+               stateHandler(m2)
+               break;
+           case "robot/response":                                                        
+               let m3 = message.toString();                                              
+               let m4 = m3.split(';');
+               responseHandler(m4)
+               break;
+           default:
+               console.log("Unknown topic");
+       }
+   });
+ });}
+    },[])
     return (
       <tr>
         <td>

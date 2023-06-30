@@ -13,7 +13,6 @@ function App() {
     console.warn = function () {};
     console.error = function () {};
   }, []);
-
   return (
     <div className="App">
       <BrowserRouter>
