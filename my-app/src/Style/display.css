@@ -1,17 +1,17 @@
-.displaysite table{
-    border:2px solid grey;
+.displaysite table {
+  border: 2px solid grey;
 }
-.displaysite table tbody tr td{
-border:2px solid #ccc;
-background-color: #f3f5fb;
+.displaysite table tbody tr td {
+  border: 2px solid #ccc;
+  background-color: #f3f5fb;
 }
-.displayTBody tr td{
-padding:4px !important;
+.displayTBody tr td {
+  padding: 4px !important;
 }
 
-#tab tbody tr td{
-padding:4px !important;   
+#tab tbody tr td {
+  padding: 4px !important;
 }
-#tab1 tbody tr td{
-padding:4px !important;   
+#tab1 tbody tr td {
+  padding: 4px !important;
 }

@@ -1,26 +1,28 @@
-import React from 'react';
-import {Bar} from 'react-chartjs-2';
+import React from "react";
+import { Bar } from "react-chartjs-2";
 
-function mychart({chartData,visibility}) {
+function mychart({ chartData, visibility }) {
   return (
-    <div className="chart-container" style={{visibility:`${visibility}`}}>
-    <h2 style={{ textAlign: "center" }}>Bar Chart</h2>
-    <Bar
-      data={chartData}
-      options={{
-        plugins: {
-          title: {
-            display: true,
-            text: "Users Gained between 2016-2020"
+    <div
+      className="chart-container"
+      style={{ width: "768px", height: "400px", visibility: `${visibility}` }}
+    >
+      <Bar
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Working hours of robot for the month according to days",
+            },
+            legend: {
+              display: true,
+            },
           },
-          legend: {
-            display: false
-          }
-        }
-      }}
-    />
-  </div>
-  )
+        }}
+      />
+    </div>
+  );
 }
 
-export default mychart
+export default mychart;
