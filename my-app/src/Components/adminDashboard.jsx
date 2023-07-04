@@ -136,6 +136,7 @@ function AdminDashboard() {
   }
 
   const getSiteData = async (site1) => {
+    console.log(site1)
     const resp = await fetch("http://localhost:8081/api/getRobots", {
       method: "POST",
       headers: {
@@ -169,6 +170,7 @@ function AdminDashboard() {
   };
 
   const getRoboData = async (robo1) => {
+   
     const resp = await fetch("http://localhost:8081/api/getRoboData", {
       method: "POST",
       headers: {
@@ -243,12 +245,12 @@ function AdminDashboard() {
           style={{
             display: "flex",
             flexDirection: "row",
-            gap: "5vw",
+            gap: "2vw",
             flexWrap: "wrap",
           }}
         >
           <div
-            style={{ width: "27.33vw", maxHeight: "15vw", overflowY: "auto" }}
+            style={{ width: "28.33vw", maxHeight: "15vw", overflowY: "auto" }}
           >
             <div
               style={{
@@ -325,7 +327,7 @@ function AdminDashboard() {
           </div>
           {user1 ? (
             <div
-              style={{ width: "27.33vw", maxHeight: "15vw", overflowY: "auto" }}
+              style={{ width: "28.33vw", maxHeight: "15vw", overflowY: "auto" }}
             >
               <div
                 style={{
@@ -400,7 +402,7 @@ function AdminDashboard() {
           )}
           {site1 ? (
             <div
-              style={{ width: "27.33vw", maxHeight: "15vw", overflowY: "auto" }}
+              style={{ width: "28.33vw", maxHeight: "15vw", overflowY: "auto" }}
             >
               <div
                 style={{
@@ -499,7 +501,7 @@ function AdminDashboard() {
             setUser={setUser}
             setSite={setSite}
             setRobot={setRobot}
-            setSpecRobot={setSpecRobot}
+            setSpecSite={setSpecSite}
             setUser1={setUser1}
             setSite1={setSite1}
           />

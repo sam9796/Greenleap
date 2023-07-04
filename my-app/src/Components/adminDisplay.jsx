@@ -58,6 +58,7 @@ function Display(props) {
   };
 
   const Update = async () => {
+    console.log(specUser._id)
     const resp = await fetch(
       `http://localhost:8081/api/updateUser/${specUser._id}`,
       {
@@ -105,8 +106,8 @@ function Display(props) {
         value={specUser._id}
         hidden={true}
       />
-      <div style={{ display: "flex", gap: "5vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Name</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -117,7 +118,7 @@ function Display(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Username</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -129,7 +130,7 @@ function Display(props) {
           </div>
         </div>
         <div>
-          <div style={{ width: "27.33vw" }}>Admin</div>
+          <div style={{ width: "28.33vw" }}>Admin</div>
           <div style={{ paddingTop: "0" }}>
             <input
               type="text"
@@ -140,9 +141,9 @@ function Display(props) {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", gap: "5vw", paddingTop: "0vw" }}>
+      <div style={{ display: "flex", gap: "2vw", paddingTop: "0vw" }}>
         <div>
-          <div style={{ width: "27.33vw" }}>Phone</div>
+          <div style={{ width: "28.33vw" }}>Phone</div>
           <div style={{ paddingTop: "0" }}>
             <input
               type="text"
@@ -153,7 +154,7 @@ function Display(props) {
           </div>
         </div>
         <div>
-          <div style={{ width: "27.33vw" }}>Designation</div>
+          <div style={{ width: "28.33vw" }}>Designation</div>
           <div style={{ paddingTop: "0" }}>
             <input
               type="text"

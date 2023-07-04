@@ -108,8 +108,27 @@ function triggerEventAtTime(targetTime, callback) {
   }
 }
 
-
 triggerEventAtTime("11:18:00", async () => { //event is triggered at this particular time 
+    const today = new Date();
+    //date of one day before is calculated
+    const previousDay = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+    let month = (previousDay.getMonth() + 1).toString();
+    let year = previousDay.getFullYear().toString().slice(-2);
+    let date = previousDay.getDate().toString();
+    month = "06";
+    year = "23";
+    date = "29";
+    try {
+      let robots = await Robot.find(); //list of all the robots is taken
+      const field = "Clean";
+      for (let i in robots) {
+        const roboId = robots[i].roboId;
+        processData(month, year, date, roboId, field);
+      }
+    } catch (error) {}
+  })
+  
+setInterval(()=>triggerEventAtTime("11:18:00", async () => { //event is triggered at this particular time 
   const today = new Date();
   //date of one day before is calculated
   const previousDay = new Date(today.getTime() - 24 * 60 * 60 * 1000);
@@ -127,7 +146,7 @@ triggerEventAtTime("11:18:00", async () => { //event is triggered at this partic
       processData(month, year, date, roboId, field);
     }
   } catch (error) {}
-});
+}),24*60*60*1000)
 
 //based on a particular month,year,date and roboId and field a robot file is taken 
 //from s3 and processed further 
@@ -325,7 +344,6 @@ app.post("/api/registerClient", fetchuser, async (req, res) => {
 app.post("/api/updateClient/:id", fetchuser, async (req, res) => {
   let { name, location, number, capacity, gps } = req.body;
   const id = req.params.id;
-
   try {
     const [GPSx, GPSy] = gps.split("/");
     const client = await Client.findById(id);
@@ -354,7 +372,7 @@ app.post("/api/updateClient/:id", fetchuser, async (req, res) => {
               continue;
             } else arr2.push(sit);
           }
-          await User.findByIdAndUpdate(user._id, { Sites: arr });
+          await User.findByIdAndUpdate(user._id, { Sites: arr2 });
         }
       }
       res.json({ success: true });
@@ -506,11 +524,10 @@ app.post("/api/addNewUser", fetchuser, [], async (req, res) => {
 
 app.post("/api/updateUser/:id", fetchuser, async (req, res) => {
   let { name, username, phone, designation, admin } = req.body;
-
   try {
-    admin = admin.toLowerCase();
+    if(typeof admin==='string'){admin = admin.toLowerCase();
     if (admin === "true") admin = 1;
-    else admin = 0;
+    else admin = 0;}
     const user = await User.findById(req.params.id);
     if (user) {
       const alp = await User.findOneAndUpdate(
@@ -549,7 +566,6 @@ app.delete("/api/deleteUser/:id", fetchuser, async (req, res) => {
 app.post("/api/roboCommand/:command", (req, res) => {
   let { robots } = req.body;
   let count = 0;
-  console.log(robots);
   for (let robo in robots) {
     mqttClient.publish(`${robots[robo]}`, req.params.command, function () {
       console.log("sent successfully");
@@ -687,7 +703,6 @@ app.post("/api/createRobot", fetchuser, async (req, res) => {
 
 app.delete("/api/deleteRobot/:id", fetchuser, async (req, res) => {
   try {
-    console.log(req.params.id);
     let robot = await Robot.findById(req.params.id);
     let sites = await Client.find();
     for (let site of sites) {
@@ -752,7 +767,7 @@ app.post("/api/updateRobot/:id", fetchuser, async (req, res) => {
               continue;
             } else arr2.push(rob);
           }
-          await Client.findByIdAndUpdate(site._id, { robots: arr });
+          await Client.findByIdAndUpdate(site._id, { robots: arr2 });
         }
       }
       res.json({ success: true });
@@ -801,34 +816,6 @@ app.post("/api/load", fetchuser, async (req, res) => {
               temp = "";
             } else temp += beta[i];
           }
-          let alp = deta.split(" ");
-          let flag = false;
-          let time = "";
-          let prev = "";
-          let total = 0;
-          let interval = 0;
-          for (let i in alp) {
-            let alp1 = alp[i].split("\t");
-            if (alp1[1] === "Cleaning") {
-              let alp2 = alp[i - 1].split("\r\r\n")[0];
-              let alp3 = alp1[0];
-              if (!flag) {
-                time = alp3;
-                prev = alp3;
-                flag = true;
-              } else {
-                if (alp2 === "Stopped!") {
-                  interval = calc(prev, time);
-                  if (interval) total += interval;
-                  prev = alp3;
-                }
-              }
-              time = alp3;
-            }
-          }
-          interval = calc(prev, time);
-          if (interval) total += interval;
-          console.log(total);
           res.send(deta);
         }
       }
@@ -840,32 +827,48 @@ app.post("/api/load", fetchuser, async (req, res) => {
   // Send the file content as the response
 });
 
-//after connecting to mqtt broker if any message received then 
-
-mqttClient.on("connect", () => {
-  console.log("connected to mqtt broker");
-  mqttClient.subscribe("robot/state");
-  mqttClient.subscribe("robot/response");
-
-  mqttClient.on("message", (topic, message) => {
-    switch (topic) {
-      case "robot/state":
-        let m = message.toString();
-        let m2 = m.split(";");
-        pusher.trigger("my-channel", m2[0] + "/state", m2);
-        console.log("pushing");
-        break;
-      case "robot/response":
-        let m3 = message.toString();
-        let m4 = m3.split(";");
-        pusher.trigger("my-channel", m4[0] + "/response", m4);
-        console.log("pushing");
-        break;
-      default:
-        console.log("Unknown topic");
-    }
-  });
+//upload the log files
+const upload = multer({
+    storage: multerS3({
+        s3,
+        bucket: 'robot-logs',
+        key: function (req, file, cb) {
+            console.log(file);
+            cb(null, `${file.originalname}`); //use Date.now() for unique file keys
+        }
+    })
 });
+
+app.post('/api/uploadLogs',upload.single('test'),(req, res) => {
+    res.send('ok')
+});  
+
+//after connecting to mqtt broker if any message received then 
+mqttClient.on('connect',() => {
+    console.log('connected to mqtt broker')
+    mqttClient.subscribe(`robot/state`);
+    mqttClient.subscribe(`robot/response`);
+    mqttClient.on('message',(topic, message) => {
+        switch (topic) {
+            case `robot/state`:                                                           
+                let m = message.toString();                                               
+                let m2 = m.split(';');
+                if(m)mqttClient.publish(`${m2[0]}/state`,m)
+                console.log('pushing')
+                break;
+            case `robot/response`:                                                        
+                let m3 = message.toString();                                              
+                let m4 = m3.split(';');
+                if(m3)mqttClient.publish(`${m4[0]}/response`,m3)
+                console.log('pushing')
+                break;
+            default:
+                console.log("Unknown topic");
+        }
+    });
+  });
+
+
 
 app.listen(8081, () => {
   console.log("Server running on port: 8081");

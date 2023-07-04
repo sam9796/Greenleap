@@ -104,8 +104,8 @@ function RoboDisplay(props) {
   return (
     <div className="RoboSpecific" style={{ padding: "0 3vw", width: "100%" }}>
       <input type="text" onChange={alpha2} name="_id" hidden={true} />
-      <div style={{ display: "flex", gap: "5vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>RobotId</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -116,7 +116,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>WorkingHr</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -127,7 +127,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Motor1</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -139,8 +139,8 @@ function RoboDisplay(props) {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", gap: "5vw", paddingTop: "0vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw", paddingTop: "0vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Motor2</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -151,7 +151,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Motor3</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -162,7 +162,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Battery1</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -174,8 +174,8 @@ function RoboDisplay(props) {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", gap: "5vw", paddingTop: "0vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw", paddingTop: "0vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Battery2</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -186,7 +186,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Wheel</div>
           <div style={{ paddingTop: "0" }}>
             {" "}
@@ -198,7 +198,7 @@ function RoboDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Brushes</div>
           <div style={{ paddingTop: "0" }}>
             <input

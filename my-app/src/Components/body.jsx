@@ -9,16 +9,17 @@ import MyChart from "./mychart.jsx";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import mqtt from 'mqtt/dist/mqtt'
-
 Chart.register(CategoryScale);
+const mqttClient=mqtt.connect('ws://65.2.179.139:9001/mqtt', {
+  username: 'gwortssh',
+  password: 'F3Ce-SNdObpe',
+})
 function Body() {
-  const [mqttClient,setMqttClient]=useState(null)
   useEffect(() => {
-    setMqttClient(mqtt.connect('ws://broker.hivemq.com:8000/mqtt', {
-   username: 'gwortssh',
-   password: 'F3Ce-SNdObpe',
- }))
-   }, []);
+    mqttClient.on('connect', () => {
+      console.log('connected to mqtt broker')
+    })
+   },[]);
   const navigate = useNavigate();
   //Stores the response to the command, sent by the robot/ server
   //set response if the server res prop changes
@@ -124,7 +125,7 @@ function Body() {
       // Create a temporary <a> element to trigger the file download
       let link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "System.txt";
+      link.download = `${k1}_${arr[2]}-${arr[1]}-${arr[0].substr(2)}_System.txt`;
       link.click();
     }
 
@@ -156,7 +157,7 @@ function Body() {
       // Create a temporary <a> element to trigger the file download
       let link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "Clean.txt";
+      link.download =`${k1}_${arr[2]}-${arr[1]}-${arr[0].substr(2)}_Clean.txt`;
       link.click();
     }
   };
@@ -363,7 +364,7 @@ function Body() {
         timer = setTimeout(() => {
           setColor("#ff0000");
           setStatus(["NaN", "NaN", "Not ALive", "NaN", "NaN"]);
-          setResponse([val, "NaN"]);
+          setResponse(["NaN", "NaN"]);
         }, 30000);
 
       return () => clearTimeout(timer);
@@ -374,18 +375,17 @@ function Body() {
       setResponse(temp);
     };
     useEffect(()=>{
- if(mqttClient){mqttClient.on('connect', () => {
-   console.log('connected to mqtt broker');
-   mqttClient.subscribe('robot/state');
-   mqttClient.subscribe('robot/response');
+ if(mqttClient){
+   mqttClient.subscribe(`${val}/state`);
+   mqttClient.subscribe(`${val}/response`);
    mqttClient.on('message', (topic, message) => {
        switch (topic) {
-           case "robot/state":                                                           
+           case `${val}/state`:                                                           
                let m = message.toString();                                               
                let m2 = m.split(';');
                stateHandler(m2)
                break;
-           case "robot/response":                                                        
+           case `${val}/response`:                                                        
                let m3 = message.toString();                                              
                let m4 = m3.split(';');
                responseHandler(m4)
@@ -393,8 +393,7 @@ function Body() {
            default:
                console.log("Unknown topic");
        }
-   });
- });}
+   });}
     },[])
     return (
       <tr>
@@ -402,7 +401,7 @@ function Body() {
           <input type="checkbox" className="slaveCheckBox" />
         </td>
         <td onClick={showDisplay} id="graphy">
-          {val}
+          {Status[0]==='NaN'?val:Status[0]}
         </td>
         <td onClick={showDisplay}>{Status[1]}</td>
         <td onClick={showDisplay}>

@@ -110,8 +110,8 @@ function SiteDisplay(props) {
         value={specSite.id}
         hidden={true}
       />
-      <div style={{ display: "flex", gap: "5vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Sitename</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -122,7 +122,7 @@ function SiteDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Location</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -133,7 +133,7 @@ function SiteDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Capacity</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -145,8 +145,8 @@ function SiteDisplay(props) {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", gap: "5vw", paddingTop: "0vw" }}>
-        <div style={{ width: "27.33vw" }}>
+      <div style={{ display: "flex", gap: "2vw", paddingTop: "0vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>GPS</div>
           <div style={{ paddingTop: "0" }}>
             <input
@@ -157,7 +157,7 @@ function SiteDisplay(props) {
             />
           </div>
         </div>
-        <div style={{ width: "27.33vw" }}>
+        <div style={{ width: "28.33vw" }}>
           <div>Number</div>
           <div style={{ paddingTop: "0" }}>
             <input
