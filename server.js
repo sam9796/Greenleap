@@ -108,16 +108,14 @@ function triggerEventAtTime(targetTime, callback) {
   }
 }
 
-triggerEventAtTime("11:18:00", async () => { //event is triggered at this particular time 
+triggerEventAtTime("11:05:00", async () => { //event is triggered at this particular time 
     const today = new Date();
     //date of one day before is calculated
     const previousDay = new Date(today.getTime() - 24 * 60 * 60 * 1000);
     let month = (previousDay.getMonth() + 1).toString();
     let year = previousDay.getFullYear().toString().slice(-2);
     let date = previousDay.getDate().toString();
-    month = "06";
-    year = "23";
-    date = "29";
+    console.log("running")
     try {
       let robots = await Robot.find(); //list of all the robots is taken
       const field = "Clean";
@@ -135,9 +133,7 @@ setInterval(()=>triggerEventAtTime("11:18:00", async () => { //event is triggere
   let month = (previousDay.getMonth() + 1).toString();
   let year = previousDay.getFullYear().toString().slice(-2);
   let date = previousDay.getDate().toString();
-  month = "06";
-  year = "23";
-  date = "29";
+  console.log('timer')
   try {
     let robots = await Robot.find(); //list of all the robots is taken
     const field = "Clean";
@@ -170,6 +166,7 @@ const processData = async (month, year, date, roboId, field) => {
           setTimeout(() => {
             clearInterval(timecheck);
           }, 10 * 24 * 60 * 60 * 1000);
+          console.log('timer set')
         } else {
           let codes = JSON.stringify(data.Body);
           let beta = "";
