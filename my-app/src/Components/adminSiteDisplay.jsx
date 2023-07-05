@@ -17,7 +17,7 @@ function SiteDisplay(props) {
   } = props;
   const Delete1 = async (e) => {
     const resp = await fetch(
-      `http://localhost:8081/api/deleteClient/${specSite.id}`,
+      `http://13.233.231.169/api/deleteClient/${specSite.id}`,
       {
         method: "DELETE",
         headers: {
@@ -58,7 +58,7 @@ function SiteDisplay(props) {
 
   const Update1 = async () => {
     const resp = await fetch(
-      `http://localhost:8081/api/updateClient/${specSite.id}`,
+      `http://13.233.231.169/api/updateClient/${specSite.id}`,
       {
         method: "POST",
         headers: {

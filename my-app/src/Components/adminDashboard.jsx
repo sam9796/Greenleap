@@ -92,7 +92,7 @@ function AdminDashboard() {
     if (!sessionStorage.getItem("auth-token")) navigate("/admin");
     const handleUser = async () => {
       console.log("Hello");
-      const resp = await fetch("http://localhost:8081/api/getAllUsers", {
+      const resp = await fetch("http://13.233.231.169/api/getAllUsers", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ function AdminDashboard() {
 
   const getSiteData = async (site1) => {
     console.log(site1)
-    const resp = await fetch("http://localhost:8081/api/getRobots", {
+    const resp = await fetch("http://13.233.231.169/api/getRobots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,7 +171,7 @@ function AdminDashboard() {
 
   const getRoboData = async (robo1) => {
    
-    const resp = await fetch("http://localhost:8081/api/getRoboData", {
+    const resp = await fetch("http://13.233.231.169/api/getRoboData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

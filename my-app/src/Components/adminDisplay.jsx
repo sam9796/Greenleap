@@ -18,7 +18,7 @@ function Display(props) {
 
   const Delete = async (e) => {
     const resp = await fetch(
-      `http://localhost:8081/api/deleteUser/${specUser._id}`,
+      `http://13.233.231.169/api/deleteUser/${specUser._id}`,
       {
         method: "DELETE",
         headers: {
@@ -60,7 +60,7 @@ function Display(props) {
   const Update = async () => {
     console.log(specUser._id)
     const resp = await fetch(
-      `http://localhost:8081/api/updateUser/${specUser._id}`,
+      `http://13.233.231.169/api/updateUser/${specUser._id}`,
       {
         method: "POST",
         headers: {

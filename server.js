@@ -862,7 +862,7 @@ mqttClient.on('connect',() => {
                 let m = message.toString();                                               
                 let m2 = m.split(';');
                 const data={"robot_Id":`${m2[0]}`,"robot_Status":`${m2[3]}`,"signal_Strength":`${m2[1]}`,"battery_Percent":`${m2[2]}`,"gps":`${m2[4]}`}
-                console.log(data)
+                
                 axios.post(url,data,{headers} )
                 .then(response => {
                     console.log("success");
@@ -877,7 +877,7 @@ mqttClient.on('connect',() => {
                 let m3 = message.toString();                                              
                 let m4 = m3.split(';');
                 const data1={"robot_Id":`${m4[0]}`,"robot_Response":`${m4[1]}`}
-                console.log(data1)
+                
                 axios.post(url,data1, { headers
                  })
                 .then(response => {

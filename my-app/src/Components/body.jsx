@@ -38,7 +38,7 @@ function Body() {
   // const [change,setChange]=useState("0")
   //function that handles what happens when the robot send it's current state
   const toUpdate = async () => {
-    const resp = await fetch("http://localhost:8081/api/getRobots", {
+    const resp = await fetch("http://13.233.231.169/api/getRobots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function Body() {
       return;
     }
     let arr = k2.split("-");
-    let resp1 = await fetch("http://localhost:8081/api/load", {
+    let resp1 = await fetch("http://13.233.231.169/api/load", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +129,7 @@ function Body() {
       link.click();
     }
 
-    resp1 = await fetch("http://localhost:8081/api/load", {
+    resp1 = await fetch("http://13.233.231.169/api/load", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -165,7 +165,7 @@ function Body() {
   const showGraph = async (k1) => {
     const month1 = document.getElementsByClassName("month-select")[0].value;
     const year1 = document.getElementsByClassName("year-select")[0].value;
-    const resp3 = await fetch("http://localhost:8081/api/getGraph", {
+    const resp3 = await fetch("http://13.233.231.169/api/getGraph", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -198,7 +198,7 @@ function Body() {
   const showDisplay = async (event) => {
     let k1 = event.target.parentNode.children[1].textContent;
     showGraph(k1);
-    const resp1 = await fetch("http://localhost:8081/api/getRoboData", {
+    const resp1 = await fetch("http://13.233.231.169/api/getRoboData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -317,7 +317,7 @@ function Body() {
       });
       return;
     }
-    const resp = await fetch(`http://localhost:8081/api/roboCommand/${beta}`, {
+    const resp = await fetch(`http://13.233.231.169/api/roboCommand/${beta}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
