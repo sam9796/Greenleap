@@ -19,6 +19,7 @@ const bcrypt = require("bcryptjs");
 const fetchuser = require("./fetchUser.js");
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const axios = require('axios');
 require("dotenv").config();
 
 app.use(cors());
@@ -72,22 +73,22 @@ mongoose
 
 //serving the static files which is our build here and specifying all the paths here where are there on the website
 
-app.use(express.static(buildPath));
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/admindashboard', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/site', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
+// app.use(express.static(buildPath));
+// app.get('/admin', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/login', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/admindashboard', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/site', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
 
 
 //this is the function which at a particular time on a day triggers an event to get the log file 
@@ -838,24 +839,53 @@ const upload = multer({
 
 app.post('/api/uploadLogs',upload.single('test'),(req, res) => {
     res.send('ok')
-});  
+}); 
+
+app.post('/ai/gotData',(req,res)=>{
+    console.log(req.body)
+    res.send('received')
+})
 
 //after connecting to mqtt broker if any message received then 
 mqttClient.on('connect',() => {
     console.log('connected to mqtt broker')
     mqttClient.subscribe(`robot/state`);
     mqttClient.subscribe(`robot/response`);
+    const headers={ 
+        'Content-Type':'application/json',
+        'apiKey':'Sury@!og1x'
+     }
+     const url='https://data.everythingfor.in/api/data'
     mqttClient.on('message',(topic, message) => {
         switch (topic) {
             case `robot/state`:                                                           
                 let m = message.toString();                                               
                 let m2 = m.split(';');
+                const data={"robot_Id":`${m2[0]}`,"robot_Status":`${m2[3]}`,"signal_Strength":`${m2[1]}`,"battery_Percent":`${m2[2]}`,"gps":`${m2[4]}`}
+                console.log(data)
+                axios.post(url,data,{headers} )
+                .then(response => {
+                    console.log("success");
+                })
+                .catch(error => {
+                    console.error('Error');
+                });
                 if(m)mqttClient.publish(`${m2[0]}/state`,m)
                 console.log('pushing')
                 break;
             case `robot/response`:                                                        
                 let m3 = message.toString();                                              
                 let m4 = m3.split(';');
+                const data1={"robot_Id":`${m4[0]}`,"robot_Response":`${m4[1]}`}
+                console.log(data1)
+                axios.post(url,data1, { headers
+                 })
+                .then(response => {
+                    console.log("success")
+                })
+                .catch(error => {
+                    console.error('Error');
+                });
                 if(m3)mqttClient.publish(`${m4[0]}/response`,m3)
                 console.log('pushing')
                 break;

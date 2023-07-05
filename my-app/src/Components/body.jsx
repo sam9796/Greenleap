@@ -352,7 +352,7 @@ function Body() {
     ]);
     const [color, setColor] = useState("#ff0000");
 
-    const stateHandler = (data) => {
+    const stateHandler =(data) => {
       let temp = [data[0], data[1], data[3], data[2], data[4]];
       setStatus(temp);
       setColor("#76ad1f");
@@ -370,7 +370,7 @@ function Body() {
       return () => clearTimeout(timer);
     }, [Status]);
 
-    const responseHandler = (data) => {
+    const responseHandler =(data) => {
       let temp = [data[0], data[1]];
       setResponse(temp);
     };
