@@ -73,22 +73,22 @@ mongoose
 
 //serving the static files which is our build here and specifying all the paths here where are there on the website
 
-// app.use(express.static(buildPath));
-// app.get('/admin', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-//   });
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-//   });
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-//   });
-// app.get('/admindashboard', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-//   });
-// app.get('/site', (req, res) => {
-//     res.sendFile(path.join(buildPath, 'index.html'));
-//   });
+app.use(express.static(buildPath));
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+app.get('/admindashboard', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+app.get('/site', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
 
 
 //this is the function which at a particular time on a day triggers an event to get the log file 
