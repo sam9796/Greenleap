@@ -54,7 +54,7 @@ function AdminLogin() {
             {" "}
             <img
               style={{
-                width: "119px",
+                width: "176px",
                 padding: "14px",
                 backgroundColor: "white",
                 borderRadius: "30px",

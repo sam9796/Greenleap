@@ -525,7 +525,7 @@ function AdminDashboard() {
         setModal1={setModal1}
         createUser={createUser}
         alpha={alpha}
-        setCreateSite={setCreateUser}
+        setCreateUser={setCreateUser}
         setUser={setUser}
         setSite={setSite}
         setRobot={setRobot}

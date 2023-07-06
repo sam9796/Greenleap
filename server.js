@@ -287,18 +287,21 @@ function getDaysInMonth(yearStr, monthStr) {
 app.post("/api/getGraph", fetchuser, async (req, res) => {
   const { month, year, roboId } = req.body;
   try {
+    console.log(month,year,roboId)
     let graph = await GraphModel.findOne({ roboId: roboId });
     if (graph) {
       let p2 = graph.graph_list;
       let p3 = false;
-      for (let i in p2) {
+      for (let i=0;i<p2.length;++i) {
+        console.log(p2[i].month,p2[i].year)
         if (p2[i].month === month && p2[i].year === year) {
           p3 = true;
+          console.log('found')
           return res.json({ success: true, arr: p2[i].workingHrs });
         }
-        if (!p3) {
-          return res.json({ success: false });
-        }
+      }
+      if (!p3) {
+        return res.json({ success: false });
       }
     } else {
       return res.json({ success: false, msg: "Data not found" });
@@ -508,6 +511,14 @@ app.post("/api/addNewUser", fetchuser, [], async (req, res) => {
   }
   try {
     // console.log(secPass)
+    if(Admin){
+      let alp=[]
+      let ko=await Client.find()
+      for(let i=0;i<ko.length;++i){
+        alp.push(ko[i].siteName)
+      }
+      Sites=alp
+    }
     const newUser = {
       name: name,
       username: username,
@@ -588,7 +599,6 @@ app.post("/api/getData", async (req, res) => {
   const id = data.user.id;
   const mem = await User.findById({ _id: id });
   if (mem) {
-    if(mem.Admin){
         let alp=[]
         let ko=await Client.find()
         for(let i in ko){
@@ -599,13 +609,6 @@ app.post("/api/getData", async (req, res) => {
             username: mem.username,
             sites: alp,
           });
-    }
-    else {
-        return res.json({
-      success: true,
-      username: mem.username,
-      sites: mem.Sites,
-    });}
   } else return res.json({ success: false });
 });
 
