@@ -11,7 +11,7 @@ function Navbar() {
   });
   useEffect(() => {
     const handle = async () => {
-      const resp = await fetch("http://localhost:8081/api/getData", {
+      const resp = await fetch("http://13.233.231.169/api/getData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
