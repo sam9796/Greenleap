@@ -10,6 +10,7 @@ function Display(props) {
         backgroundColor: "white",
         padding: "0.1% 0.1%",
         borderRadius: "5px",
+        fontSize:'13px'
       }}
     >
       <h6 style={{ color: "#8cc63e" }}>{element.siteName}</h6>

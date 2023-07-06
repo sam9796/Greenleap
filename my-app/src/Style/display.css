@@ -5,8 +5,12 @@
   border: 2px solid #ccc;
   background-color: #f3f5fb;
 }
+.bodyFirst{
+  flex:3 3 4;
+}
 .displayTBody tr td {
   padding: 4px !important;
+  width:50% !important;
 }
 
 #tab tbody tr td {

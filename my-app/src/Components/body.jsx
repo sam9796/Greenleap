@@ -223,7 +223,6 @@ function Body() {
     }
     let el = document.createElement("div");
     el.style.backgroundColor = "white";
-    el.style.padding = "1% 1%";
     el.style.borderRadius = "5px";
     el.style.display = "flex";
     el.style.gap = "20px";
@@ -277,6 +276,7 @@ function Body() {
     let ba = document.getElementById("tab1");
     ba.style.border = "2px solid #ccc";
     ba.style.backgroundColor = "#f3f5fb";
+    ba.style.fontSize='13px'
     let ca = document.getElementsByClassName("distd");
     for (let i = 0; i < ca.length; ++i) {
       ca[i].style.border = "2px solid #ccc";
@@ -442,7 +442,7 @@ function Body() {
     <div className="body">
       <div
         className="bodyFirst"
-        style={{ display: "flex", overflowX: "auto", gap: "3vw" }}
+        style={{ display: "flex", overflowX: "auto", gap: "1vw" }}
       >
         <Display element={data} />
         <div id="bodyFirst1" style={{ padding: "0", margin: "0" }}></div>

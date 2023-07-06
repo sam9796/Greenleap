@@ -73,22 +73,22 @@ mongoose
 
 //serving the static files which is our build here and specifying all the paths here where are there on the website
 
-app.use(express.static(buildPath));
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/admindashboard', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-app.get('/site', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
+// app.use(express.static(buildPath));
+// app.get('/admin', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/login', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/admindashboard', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
+// app.get('/site', (req, res) => {
+//     res.sendFile(path.join(buildPath, 'index.html'));
+//   });
 
 
 //this is the function which at a particular time on a day triggers an event to get the log file 
@@ -150,6 +150,12 @@ setInterval(()=>triggerEventAtTime("11:18:00", async () => { //event is triggere
 const processData = async (month, year, date, roboId, field) => {
   try {
     let deta = "";
+    if(date.length==1){
+        date="0"+date;
+    }
+    if(month.length==1){
+        month="0"+month
+    }
     s3.getObject(
       {
         Bucket: "robot-logs",
@@ -582,11 +588,24 @@ app.post("/api/getData", async (req, res) => {
   const id = data.user.id;
   const mem = await User.findById({ _id: id });
   if (mem) {
-    return res.json({
+    if(mem.Admin){
+        let alp=[]
+        let ko=await Client.find()
+        for(let i in ko){
+            alp.push(ko[i].siteName)
+        }
+        return res.json({
+            success: true,
+            username: mem.username,
+            sites: alp,
+          });
+    }
+    else {
+        return res.json({
       success: true,
       username: mem.username,
       sites: mem.Sites,
-    });
+    });}
   } else return res.json({ success: false });
 });
 

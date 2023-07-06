@@ -5,7 +5,7 @@ function mychart({ chartData, visibility }) {
   return (
     <div
       className="chart-container"
-      style={{ width: "768px", height: "400px", visibility: `${visibility}` }}
+      style={{ width: "750px", height: "300px", visibility: `${visibility}` }}
     >
       <Bar
         data={chartData}
