@@ -403,8 +403,8 @@ function Body() {
         <td onClick={showDisplay} id="graphy">
           {Status[0]==='NaN'?val:Status[0]}
         </td>
-        <td onClick={showDisplay}>{Status[1]}</td>
-        <td onClick={showDisplay}>
+        <td>{Status[1]}</td>
+        <td>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             style={{ fill: `${color}` }}
@@ -416,9 +416,9 @@ function Body() {
           </svg>
           {Status[2]}
         </td>
-        <td onClick={showDisplay}>{response[1]}</td>
-        <td onClick={showDisplay}>{Status[3]}%</td>
-        <td onClick={showDisplay}>{Status[4]}</td>
+        <td>{response[1]}</td>
+        <td>{Status[3]}%</td>
+        <td>{Status[4]}</td>
         <td>
           <input type="date" id="datepicker" name="datepicker" />
           <svg

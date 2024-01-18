@@ -156,7 +156,7 @@ const processData = async (month, year, date, roboId, field) => {
     if(month.length==1){
         month="0"+month
     }
-    s3.getObject(
+     s3.getObject(
       {
         Bucket: "robot-logs",
         Key: `${roboId}_${date}-${month}-${year}_${field}.txt`,
@@ -190,32 +190,34 @@ const processData = async (month, year, date, roboId, field) => {
           }
           let alp = deta.split(" ");
           let flag = false;
+          let flag1=false;
           let time = "";
           let prev = "";
           let total = 0;
           let interval = 0;
           for (let i in alp) {
-            let alp1 = alp[i].split("\t");
-            if (alp1[1] === "Cleaning") {
-              let alp2 = alp[i - 1].split("\r\r\n")[0];
-              let alp3 = alp1[0];
-              if (!flag) {
-                time = alp3;
-                prev = alp3;
-                flag = true;
-              } else {
-                if (alp2 === "Stopped!") {
+            if (alp[i][0] === "C") {
+                if (alp[i][2] === "S") {
                   interval = calc(prev, time);
                   if (interval) total += interval;
-                  prev = alp3;
-                }
+                  flag1=false
+                } 
+            }
+            if(alp[i].length===8 && alp[i][2]===":" && alp[i][5]===':'){
+              if(!flag){
+                time = alp[i].substring(0,8);
+                prev = alp[i].substring(0,8);
+                flag = true;
               }
-              time = alp3;
+              if(!flag1){
+                prev=alp[i].substring(0,8)
+                flag1=true
+              }
+              time = alp[i].substring(0,8);
             }
           }
-          interval = calc(prev, time);
-          if (interval) total += interval;
-          const alp4 = (total / 60).toString();
+          total=(total/60).toFixed(2)
+          const alp4 = (total).toString();
           let p1 = await GraphModel.findOne({ roboId: roboId });
 
           if (p1) {
@@ -437,7 +439,7 @@ app.post("/api/auth", async (req, res) => {
             id: user.id,
           },
         };
-        let authtoken = jwt.sign(data, process.env.USER_KEY);
+        let authtoken = jwt.sign(data, "Shubham@#$%^Jha#$%^");
         return res.json({ success: true, authtoken });
       }
     } else {
@@ -470,7 +472,7 @@ app.post("/api/auth/admin", async (req, res) => {
               id: user.id,
             },
           };
-          let authtoken = jwt.sign(data, process.env.USER_KEY);
+          let authtoken = jwt.sign(data, "Shubham@#$%^Jha#$%^");
           return res.json({ success: true, authtoken });
         } else
           res.json({
@@ -487,7 +489,7 @@ app.post("/api/auth/admin", async (req, res) => {
 });
 
 // Get all users 
-
+//not in use
 app.get("/api/getAllUsers", fetchuser, async (req, res) => {
   let data = await User.find();
   if (data) {
@@ -582,7 +584,7 @@ app.post("/api/roboCommand/:command", (req, res) => {
   let { robots } = req.body;
   let count = 0;
   for (let robo in robots) {
-    mqttClient.publish(`${robots[robo]}`, req.params.command, function () {
+    mqttClient.publish(`${robots[robo]}/command`, req.params.command, function () {
       console.log("sent successfully");
       count += 1;
     });
@@ -595,7 +597,7 @@ app.post("/api/roboCommand/:command", (req, res) => {
 
 app.post("/api/getData", async (req, res) => {
   const token = req.header("auth-token");
-  const data = jwt.verify(token, process.env.USER_KEY);
+  const data = jwt.verify(token, "Shubham@#$%^Jha#$%^");
   const id = data.user.id;
   const mem = await User.findById({ _id: id });
   if (mem) {
@@ -863,10 +865,6 @@ app.post('/api/uploadLogs',upload.single('test'),(req, res) => {
     res.send('ok')
 }); 
 
-app.post('/ai/gotData',(req,res)=>{
-    console.log(req.body)
-    res.send('received')
-})
 
 //after connecting to mqtt broker if any message received then 
 mqttClient.on('connect',() => {
@@ -883,11 +881,12 @@ mqttClient.on('connect',() => {
             case `robot/state`:                                                           
                 let m = message.toString();                                               
                 let m2 = m.split(';');
-                const data={"robot_Id":`${m2[0]}`,"robot_Status":`${m2[3]}`,"signal_Strength":`${m2[1]}`,"battery_Percent":`${m2[2]}`,"gps":`${m2[4]}`}
-                
-                axios.post(url,data,{headers} )
+                let st='OPERATIONAL';
+                if(m2[3]=='STOPPED' || m2[3]=='IDLE')st='STOPPED';
+                const data={"Robot_ID":`${m2[0]}`,"Robot_Status":`${st}`,"Running_length":"0","Signal_Strength":`${m2[1]}`,"Battery_percent":`${m2[2]}`,"GPS":`${m2[4]}`,"RFID":"", "TempA" :"0.0","Temp1" :"0.0" ,"Temp2" :"0.0" ,"Temp3" :"0.0", "Temp4" :"0.0"}
+                 axios.post(url,data,{headers} )
                 .then(response => {
-                    console.log("success");
+                    // console.log("success");
                 })
                 .catch(error => {
                     console.error('Error');
@@ -899,11 +898,11 @@ mqttClient.on('connect',() => {
                 let m3 = message.toString();                                              
                 let m4 = m3.split(';');
                 const data1={"robot_Id":`${m4[0]}`,"robot_Response":`${m4[1]}`}
-                
+                console.log(data1)
                 axios.post(url,data1, { headers
                  })
                 .then(response => {
-                    console.log("success")
+                    // console.log("success")
                 })
                 .catch(error => {
                     console.error('Error');
