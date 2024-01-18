@@ -18,7 +18,7 @@ function adminAddUser(props) {
 
   const Change = async (e) => {
     e.preventDefault();
-    const resp = await fetch("http://13.233.231.169/api/addNewUser", {
+    const resp = await fetch("http://13.232.106.215/api/addNewUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

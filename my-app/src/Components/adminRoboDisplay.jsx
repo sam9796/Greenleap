@@ -16,7 +16,7 @@ function RoboDisplay(props) {
 
   const Delete2 = async (e) => {
     const resp = await fetch(
-      `http://13.233.231.169/api/deleteRobot/${specRobot._id}`,
+      `http://13.232.106.215/api/deleteRobot/${specRobot._id}`,
       {
         method: "DELETE",
         headers: {
@@ -60,7 +60,7 @@ function RoboDisplay(props) {
 
   const Update2 = async () => {
     const resp = await fetch(
-      `http://13.233.231.169/api/updateRobot/${specRobot._id}`,
+      `http://13.232.106.215/api/updateRobot/${specRobot._id}`,
       {
         method: "POST",
         headers: {

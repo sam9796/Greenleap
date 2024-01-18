@@ -18,7 +18,7 @@ function Login() {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://13.233.231.169/api/auth", {
+    const response = await fetch("http://13.232.106.215/api/auth", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

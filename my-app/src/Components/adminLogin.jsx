@@ -18,7 +18,7 @@ function AdminLogin() {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://13.233.231.169/api/auth/admin", {
+    const response = await fetch("http://13.232.106.215/api/auth/admin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

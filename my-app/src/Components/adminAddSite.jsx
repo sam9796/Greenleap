@@ -18,7 +18,7 @@ function adminAddSite(props) {
   } = props;
   const Change2 = async (e) => {
     e.preventDefault();
-    const resp = await fetch("http://13.233.231.169/api/registerClient", {
+    const resp = await fetch("http://13.232.106.215/api/registerClient", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
