@@ -11,8 +11,8 @@ import { CategoryScale } from "chart.js";
 import mqtt from 'mqtt/dist/mqtt'
 Chart.register(CategoryScale);
 const mqttClient=mqtt.connect('ws://65.2.179.139:9001/mqtt', {
-  username: 'gwortssh',
-  password: 'F3Ce-SNdObpe',
+  username: process.env.USER_NAME,
+  password: process.env.PASS_WORD,
 })
 function Body() {
   useEffect(() => {
