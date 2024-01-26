@@ -31,9 +31,9 @@ const buildPath = path.join(__dirname, "./my-app/build");
 
 //credentials used for connecting to pusher 
 const pusher = new Pusher({
-  appId: "1606316",
-  key: "5564dcf7d4ec7a6e2484",
-  secret: "c5fd8e2c8c8334533252",
+  appId: process.env.APP_ID,
+  key: process.env.USER_KEY,
+  secret: process.env.SECRET_KEY,
   cluster: "ap2",
   useTLS: true,
 });
@@ -41,8 +41,8 @@ const pusher = new Pusher({
 //credentials for connecting to aws s3 to get the robot log files
 
 aws.config.update({
-  secretAccessKey: "eqRVZfUWCMiiA85sZVWDJXXbbnk24GDhapJlP3Zf",
-  accessKeyId: "AKIAR5BJHCWWGXOMBAOM",
+  secretAccessKey: process.env.SECRET_ACCESS,
+  accessKeyId: process.env.ACCESS_KEY,
   region: "us-east-1",
 });
 let params = {
@@ -53,14 +53,14 @@ const s3 = new aws.S3();
 //connecting to mqtt broker
 
 const mqttClient = mqtt.connect("mqtt://65.2.179.139:1883", {
-  username: "gwortssh",
-  password: "F3Ce-SNdObpe",
+  username: process.env.USER_NAME,
+  password: process.env.PASS_WORD,
 });
 
 //connecting to mongodb atlas
 
 mongoAtlasUri =
-  "mongodb+srv://Apoorv:mongodb%40greenleap5@greenleap-cluster0.kxtkm.mongodb.net/dev?retryWrites=true&w=majority";
+  process.env.MONGO_URL;
 
 mongoose
   .connect(mongoAtlasUri, { useNewUrlParser: true, useUnifiedTopology: true })
